@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page %}
+<h1>{{ post.title }}</h1>
+
+{{ post.content }}<br>
+{{ post.updated }}<br>
+{{ post.id }}<br>
+
+{% endblock %}

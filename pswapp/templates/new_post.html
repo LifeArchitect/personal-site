@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page %}
+<h1>New Post Form</h1>
+
+<form action="" method="POST" onsubmit="{% url 'posts_home' %}">
+
+{% csrf_token %}
+{{ new_post.as_p }}
+<input type="submit" value="Create New Post" onclick=""/>
+
+</form>
+
+{% endblock %}

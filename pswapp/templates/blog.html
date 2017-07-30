@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page %}
+<br>
+<h1>All Blog Posts</h1>
+
+<a href="{% url 'post_create' %}">Create New Post</a><br>
+
+{% for post in object_list %}
+
+<a href="{% url 'post_detail' id=post.id %}"><h3>{{ post.title }}</h3></a><br>
+{{ post.content }}<br>
+{{ post.updated }}<br>
+{{ post.id }}<br>
+<a href="{% url 'post_update' id=post.id %}">Edit Post</a><br>
+<a href="{% url 'post_delete' id=post.id %}">Delete Post</a><br>
+
+{% endfor %}
+
+
+{% endblock %}

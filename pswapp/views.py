@@ -1,4 +1,7 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect
+from .models import Post
+from .forms import NewPostForm
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -6,19 +9,61 @@ def home(request):
 
 # Blog Posts
 def posts_home(request):
-    return HttpResponse("<h1>Posts Home</h1>")
+    queryset = Post.objects.all()
+    context = {
+        "object_list": queryset,
+        "title": "List"
+    }
+    return render(request, 'blog.html', context)
 
 def post_create(request):
-    return HttpResponse("<h1>Create New Post</h1>")
+    new_post = NewPostForm(request.POST or None)
+    if new_post.is_valid():
+        instance = new_post.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect('/posts/')
 
-def post_detail(request):
-    return HttpResponse("<h1>Post Detail</h1>")
+    context = {
+        "new_post": new_post,
+    }
+    return render(request, 'new_post.html', context)
+
+def post_detail(request, id):
+    post = get_object_or_404(Post, id=id)
+    context = {
+        "title": post.title,
+        "post": post,
+    }
+    return render(request, 'blog_post.html', context)
 
 def post_list(request):
-    return HttpResponse("<h1>Post List</h1>")
+    queryset = Post.objects.all()
+    context = {
+        "object_list": queryset,
+        "title": "List"
+    }
+    return render(request, 'blog.html', context)
 
-def post_update(request):
-    return HttpResponse("<h1>Update Post</h1>")
 
-def post_delete(request):
-    return HttpResponse("<h1>Delete Post</h1>")
+def post_update(request, id):
+    post = get_object_or_404(Post, id=id)
+    new_post = NewPostForm(request.POST or None, instance=post)
+    if new_post.is_valid():
+        instance = new_post.save(commit=False)
+        instance.save()
+        messages.success(request, "Edit Successful")
+        return HttpResponseRedirect('/posts/')
+
+    context = {
+        "title": post.title,
+        "post": post,
+        "new_post": new_post,
+    }
+    return render(request, 'new_post.html', context)
+
+
+def post_delete(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    messages.success(request, "Successfully Deleted Post")
+    return HttpResponseRedirect('/posts/')
