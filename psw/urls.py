@@ -17,7 +17,14 @@ from django.conf.urls import url
 from django.contrib import admin
 from pswapp import views
 
-urlpatterns = [
+urlpatterns = [ # 13 of 38
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
+    url(r'posts/$', views.posts_home, name='posts_home'),
+    url(r'posts/create/$', views.post_create, name='post_create'),
+    url(r'posts/detail/$', views.post_detail, name='post_detail'),
+    url(r'posts/list/$', views.post_list, name='post_list'),
+    url(r'posts/update/$', views.post_update, name='post_update'),
+    url(r'posts/delete/$', views.post_delete, name='post_delete'),
+
 ]
