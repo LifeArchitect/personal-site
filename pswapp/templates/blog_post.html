@@ -2,10 +2,20 @@
 {% load static %}
 
 {% block page %}
-<h1>{{ post.title }}</h1>
-
-{{ post.content }}<br>
-{{ post.updated }}<br>
-{{ post.id }}<br>
+<br>
+<h1>
+  <a>{{ post.title }}</a>
+  <small>{{ post.updated }} {{ post.id }}</small>
+</h1>
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="thumbnail">
+      <!-- <img src="..." alt="..."> -->
+      <div class="caption">
+        <p>{{ post.content | linebreaks }}</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
