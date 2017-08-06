@@ -5,12 +5,16 @@
 <br>
 <h1>
   <a>{{ post.title }}</a>
-  <small>{{ post.updated }} {{ post.id }}</small>
+  <small>{{ post.updated }}</small>
 </h1>
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <div class="thumbnail">
-      <!-- <img src="..." alt="..."> -->
+
+      {% if post.image %}
+        <img src='{{ post.image.url }}'/>
+      {% endif %}
+
       <div class="caption">
         <p>{{ post.content | linebreaks }}</p>
       </div>

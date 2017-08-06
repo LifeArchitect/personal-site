@@ -9,7 +9,7 @@ def home(request):
 
 # Blog Posts
 def posts_home(request):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by("-timestamp")
     context = {
         "object_list": queryset,
         "title": "List"
@@ -17,7 +17,7 @@ def posts_home(request):
     return render(request, 'blog.html', context)
 
 def post_create(request):
-    new_post = NewPostForm(request.POST or None)
+    new_post = NewPostForm(request.POST or None, request.FILES or None)
     if new_post.is_valid():
         instance = new_post.save(commit=False)
         instance.save()
@@ -36,18 +36,9 @@ def post_detail(request, id):
     }
     return render(request, 'blog_post.html', context)
 
-def post_list(request):
-    queryset = Post.objects.all()
-    context = {
-        "object_list": queryset,
-        "title": "List"
-    }
-    return render(request, 'blog.html', context)
-
-
 def post_update(request, id):
     post = get_object_or_404(Post, id=id)
-    new_post = NewPostForm(request.POST or None, instance=post)
+    new_post = NewPostForm(request.POST or None, request.FILES or None, instance=post)
     if new_post.is_valid():
         instance = new_post.save(commit=False)
         instance.save()

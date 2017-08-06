@@ -176,7 +176,7 @@ body {
 }
 }
 
-@media (min-width: 1027px) {
+@media screen and (min-width: 1027px) {
   .sidebar-collapse {
     height: auto;
     border-top: 0;
@@ -205,10 +205,14 @@ body {
   .sidebar-nav > li,
   .sidebar-left,
   .sidebar-right,
-  .sidebar-header {float:right !important;}
+  .sidebar-header {float:right;}
 
   .sidebar-right .dropdown-menu {left:0;right:auto;}
   .sidebar-collapse .sidebar-nav.sidebar-right:last-child {
       margin-right: 0;
+  }
+
+  .menu {
+    display: block;
   }
 }
