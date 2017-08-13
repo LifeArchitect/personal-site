@@ -16,8 +16,21 @@
       {% endif %}
 
       <div class="caption">
+
+        <button><a href="https://www.facebook.com/sharer/sharer.php?u={{ post.get_absolute_url }}">
+          Share on Facebook
+        </a></button>
+
+        <button><a href="https://www.linkedin.com/shareArticle?mini=true&url={% url 'post_detail' id=post.id %}&title={{ post.title }}&summary={{ share_string }}&source={{ post.get_absolute_url }}">
+          Share on Linkedin
+        </a></button>
+
         <p>{{ post.content | linebreaks }}</p>
+
       </div>
+
+      <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="5"></div>
+      
     </div>
   </div>
 </div>
